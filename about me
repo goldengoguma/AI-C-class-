@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define MAX_NAME_LENGTH 100
+#define MAX_DATE_LENGTH 11
+
+// 함수 선언
+void print_triangle(int width);
+void clear_screen();
+
+// 메인 함수
+int main() {
+    char name[MAX_NAME_LENGTH];
+    char date[MAX_DATE_LENGTH];
+    
+    // 현재 날짜를 "yyyy-mm-dd" 형식으로 입력 받기
+    printf("[현재 날짜를 \"yyyy-mm-dd\" 형식으로 입력하세요]: ");
+    scanf("%s", date);
+    
+    // 이름 입력 받기
+    printf("[당신의 이름을 입력하세요]: ");
+    getchar(); // 버퍼에 남아있는 '\n'을 처리
+    fgets(name, MAX_NAME_LENGTH, stdin);
+    name[strcspn(name, "\n")] = '\0'; // fgets로 입력받은 개행 문자 제거
+    
+    // 입력 확인 메시지 출력
+    printf("**입력이 정상적으로 처리되었습니다.**\n");
+
+    // 3초 대기
+    sleep(3);
+
+    // 화면 지우기
+    clear_screen();
+
+    // 스플래시 화면 출력
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    print_triangle(5); // 직각삼각형 출력
+    printf("                         [마그라테아 ver 0.1]                               \n");
+    printf("           풀 한 포기 없는 황무지에서 반짝이는 행성을 만들내는 곳 마그라테아,         \n");
+    printf("         사람들이 보지 못하는 잠재력을 찾고 전문가의 손길을 더해 보석을 빗는 곳,    \n");
+    printf("           마그라테아에 오신걸 환영합니다.   \n");
+    print_triangle(5); // 역직각삼각형 출력
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n");
+
+    // 사용자 이름과 날짜 출력
+    printf("[사용자]: %s                                   [실행 시간]:%s\n", name, date);
+    printf("================================================================================\n");
+
+    return 0;
+}
+
+// 삼각형 출력 함수 (왼쪽 직각삼각형과 오른쪽 역직각삼각형)
+void print_triangle(int width) {
+    for (int i = 1; i <= width; i++) {
+        for (int j = 0; j < i; j++) {
+            printf("*");
+        }
+        for (int j = 0; j < width - i; j++) {
+            printf(" ");
+        }
+        printf("  ");
+        for (int j = 0; j < width - i; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < i; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+
+// 화면 지우기 함수 (콘솔 화면 지우기)
+void clear_screen() {
+    // 시스템에 따라 화면을 지우는 방법이 다를 수 있음
+    // Windows에서는 cls, Unix 계열에서는 clear 명령 사용
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
